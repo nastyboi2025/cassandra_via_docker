@@ -1,0 +1,28 @@
+brief history
+
+originally develped by facebook in 2008.
+was designed for inbox searching
+founded on the principles of googles BigTable and Amazons Dynamo
+one of the founders of cassandra worked on both BigTable and Dynamo.
+
+cassandra combines the distributed nature of dynamo with the data model of bigtable.
+
+fb open sourced in 2008. in 2010 it became a top level apache project.
+
+netflix migrated from oracle to cassandra
+apple also uses cassandra
+
+	node
+node		node
+
+node		node
+	node
+
+all data that is stored in casandra is associated with a token.
+massive token values.
+
+if there is 1 node then thus one node has all token values
+as new nodes added each new node takes over some contiguous set of token values and storing the data assicated with it.
+
+
+
