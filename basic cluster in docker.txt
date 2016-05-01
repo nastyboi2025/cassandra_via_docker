@@ -1,0 +1,63 @@
+1)
+run docker quickstart terminal
+
+$ docker-machine status
+#this checks the status of docker
+
+$ docker run --name=n1 -d tobert/cassandra
+#this sets up the first node
+
+$ docker ps
+#this comand checks whats running
+
+#now we will run a cassandra command in docker. a tool called nodetool allows you to adminster and find out about nodes
+
+$ docker exec -it n1 nodetool status
+
+
+Datacenter: datacenter1
+=======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address     Load       Tokens  Owns (effective)  Host ID                               Rack
+UN  172.17.0.2  51.55 KB   256     100.0%            e2445e10-88bc-4c0a-8597-827e1347a058  rack1
+
+
+U stands for UP
+N stands for Normal 
+The IP address of this node assigned by docker
+256 virtual_nodes is the tokens.
+
+
+$ docker exec -it n1 nodetool ring
+
+displays a list of token ranges allocated across the node ; is used to output all the tokens of a node
+since we only have the one node our response will be just one ip address.
+
+Now to login to the cassandra container we can use the below command:
+
+$ docker exec -it n1 /bin/bash
+we can inspect the casandra.yaml file which has some config setts that are quite interesting.
+see /data/config/cassandra.yaml
+
+exit the cassandra container:
+
+$ exit
+
+#we can check the ip of the node
+
+$ docker inspect -f '{{ .NetworkSettings.IPAddress}}' n1
+
+this returns 172.17.0.2
+
+now fire up another container to add another node to the cassandra cluster.
+we require a parameter called seeds, reason is cassandra nodes need a way to bootstrap themselves when joining a cluster
+
+$ docker run --name n2 -d tobert/cassandra -seeds 172.17.0.2
+
+
+
+
+
+
+
