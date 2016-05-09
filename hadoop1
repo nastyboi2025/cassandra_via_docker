@@ -1,0 +1,65 @@
+-------------
+Data Management and Hadoop History
+-------------
+
+back in 80s 90s and some of 00s the client server model was king.
+however limitations of servers esp when servers are overloaded with requests; 
+
+solution 1: upgrade hardware BUT this became very expensive.
+solution 2: have a central contact point to route client traffic which moves it on to applicable servers where the data lies BUT 
+overload on client side causes bottleneck at central contact point.
+
+
+Google realised limitations of classic client server model and developed a Google FileSystem (GFS) to tackle the indexing of the www. 
+So they decided to have multiple medium spec hardware replicated many times in the form of hundreds if not thousands of
+nodes. The data would only sit on one particular node but replicated 3 times around the network for availability.
+
+ie data is broken down into chunks and is distributed over various nodes. There is now no central store to overwhelm.
+This adds scale - the more nodes you add ; the more computing power you have.
+
+They then paired their concept with a new computing model called mapReduce.
+
+Analogy used: Imagine you have a deck of cards, and your looking for the how many Spades in your deck. So your flicking through each 
+card looking for it. Contrast that to 4 helpers looking for the spades cards; each helper being given 13 cards;
+wouldnt it be quicker? pretty obvious.
+each helper denotes number in their mini deck. all helper decks added. boom total figured out quicker.
+
+The four helpers here are known as a cluster.
+
+Google was kind enough to create whitepaper on this research. It created a buzz in the community. From that buzz came 2 guys 
+Doug Cutting and Mike Caferella. The created something similar to Googles concept and called it Hadoop. 
+Named after the project after his sons elephant
+toy which was called Hadoop.
+
+-------------
+Intro to Hadoop EcoSystem
+-------------
+
+HDFS sits on the native file system for whatever OS you have. 
+MapReduce - computing algorithm that essentially is a map procedure and then a reduce procedure. map performs filtering 
+and sorting of data. 
+reduce is a summary of operations.
+
+Open source community added new functionalites and made it better.
+
+YARN - resource manager plugged on top of hadoop. (Yet another resource negotiator)
+SQOOP - SQlhadOOP; pull data from db into hdfs.
+HIVE - allows u to run sql converted to mapreduce that can run against hdfs
+PIG - higher level scripting language (like oracles PL/SQL)
+IMPALA - bypasses mapReduce; blazing fast data processing for querying
+SOLR - searching/indexing of hadoop data
+SPARK - may replace mapReduce. allows use of API, leverages in-memory work.
+SENTRY - role based Authentication
+
+ --- ----  --------------------------
+|Hive|PIG|          |       |        |                                     Relational DBS
+---------   IMPALA  |  SOLR |  SPARK |                                           Operational Data Store / Data Warehouse  
+mapReduce|          |       |        |
+--------- ----------|-------|--------|
+          SENTRY                     |
+-------------------------------------
+                 YARN               |
+-------------------------------------
+---------------------------------
+Hadop Distributed File Syetm    |               <-------FLUME Streaming Event Data
+---------------------------------
