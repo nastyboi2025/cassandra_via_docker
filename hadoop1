@@ -63,3 +63,5 @@ mapReduce|          |       |        |
 ---------------------------------
 Hadop Distributed File Syetm    |               <-------FLUME Streaming Event Data
 ---------------------------------
+      |     |     |
+     X86   X86   X86
